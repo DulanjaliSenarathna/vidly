@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Like from '../common/like';
 import {getMovies} from '../services/fakeMovieService';
+import Pagination from '../common/pagination';
 
 class Movies extends Component {
     state = {  
         movies : getMovies(),
+        pageSize:4
     } ;
 
     handleDelete = (movie) => {
@@ -18,6 +20,10 @@ class Movies extends Component {
         movies[index] = {...movies[index]};
         movies[index].liked = !movies[index].liked;
         this.setState({movies});
+    }
+
+    handlePageChange = (page) =>{
+        console.log(page);
     }
     render() { 
         const {length:count} = this.state.movies;
@@ -50,6 +56,7 @@ class Movies extends Component {
                     
                 </tbody>
             </table>
+            <Pagination itemsCount={count} pageSize={this.state.pageSize} onPageChange={this.handlePageChange}/>
             </React.Fragment>
             
         );//inside onlick event , handleDelete(movie) parameter is same movie , in .map method
