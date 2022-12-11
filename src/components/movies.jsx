@@ -12,7 +12,11 @@ class Movies extends Component {
 
     }
     render() { 
+        const {length:count} = this.state.movies;
+        if (count === 0) return <p>There is no movies in the list</p>
         return (
+            <React.Fragment>
+                <p>There are {count} movies in the lsit</p>
             <table className="table">
                 <thead>
                     <tr>
@@ -36,6 +40,8 @@ class Movies extends Component {
                     
                 </tbody>
             </table>
+            </React.Fragment>
+            
         );//inside onlick event , handleDelete(movie) parameter is same movie , in .map method
     }
 }
