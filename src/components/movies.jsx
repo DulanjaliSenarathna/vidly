@@ -6,6 +6,7 @@ import Pagination from '../common/pagination';
 class Movies extends Component {
     state = {  
         movies : getMovies(),
+        currentPage: 1,
         pageSize:4
     } ;
 
@@ -23,10 +24,13 @@ class Movies extends Component {
     }
 
     handlePageChange = (page) =>{
-        console.log(page);
+        this.setState({currentPage:page});
     }
+
     render() { 
         const {length:count} = this.state.movies;
+        const {currentPage, pageSize} = this.state;
+
         if (count === 0) return <p>There is no movies in the list</p>
         return (
             <React.Fragment>
@@ -56,7 +60,11 @@ class Movies extends Component {
                     
                 </tbody>
             </table>
-            <Pagination itemCount={count} pageSize={10} onPageChange={this.handlePageChange}/>
+            <Pagination 
+            itemCount={count} 
+            pageSize={pageSize} 
+            onPageChange={this.handlePageChange}
+            currentPage = {currentPage}/>
             </React.Fragment>
             
         );//inside onlick event , handleDelete(movie) parameter is same movie , in .map method
