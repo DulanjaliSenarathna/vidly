@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import Like from '../common/like';
 import {getMovies} from '../services/fakeMovieService';
+import { getGenres } from '../services/fakeGenreService';
 import Pagination from '../common/pagination';
 import {paginate} from '../utils/paginate.js';
+import ListGroup from '../common/listGroup';
 
 class Movies extends Component {
     state = {  
-        movies : getMovies(),
+        movies : [],
         currentPage: 1,
-        pageSize:4
+        pageSize:4,
+        genres:[]
     } ;
+
+    componentDidMount(){
+        this.setState({movies: getMovies(), genres: getGenres()});
+    }
 
     handleDelete = (movie) => {
         const movies = this.state.movies.filter(m => m._id !== movie._id);
@@ -28,6 +35,10 @@ class Movies extends Component {
         this.setState({currentPage:page});
     }
 
+    handleGenreSelect = genre =>{
+        console.log(genre);
+    }
+
     render() { 
         const {length:count} = this.state.movies;
         const {currentPage, pageSize, movies: allMovies} = this.state;
@@ -35,7 +46,11 @@ class Movies extends Component {
         if (count === 0) return <p>There is no movies in the list</p>;
         const movies = paginate(allMovies,currentPage,pageSize);
         return (
-            <React.Fragment>
+            <div className='row'>
+                <div className='col-2'>
+                    <ListGroup items={this.state.genres} onItemSelect={this.handleGenreSelect}/>
+                </div>
+                <div className='col'>
                 <p>There are {count} movies in the lsit</p>
             <table className="table">
                 <thead>
@@ -67,7 +82,8 @@ class Movies extends Component {
             pageSize={pageSize} 
             onPageChange={this.handlePageChange}
             currentPage = {currentPage}/>
-            </React.Fragment>
+                </div>           
+            </div>
             
         );//inside onlick event , handleDelete(movie) parameter is same movie , in .map method
     }
