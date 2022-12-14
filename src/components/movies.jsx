@@ -67,7 +67,7 @@ class Movies extends Component {
         const {length:count} = this.state.movies;
         const {currentPage, sortColumn, pageSize} = this.state;
 
-        if (count === 0) return <p>There is no movies in the list</p>;
+        if (count === 0) return <p>There are no movies in the list</p>;
 
         const {totalCount,data: movies} = this.getPageData();
 
