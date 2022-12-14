@@ -1,7 +1,4 @@
-
 import React, { Component } from 'react'
-
-
 //columns: array
 //sortColumn: object
 //onSort:function
