@@ -10,8 +10,8 @@ class MoviesTable extends Component {
         {path: 'genre.name', label:'Genre'},
         {path: 'numberInStock', label:'Stock'},
         {path: 'dailyRentalRate', label:'Rate'},
-        {key:'like'},//like column we are not sort 
-        {key:'delete'}//delete button
+        {key:'like', content: movie => <Like liked={movie.liked} onClick={() => this.props.onLike(movie)}/>},//like column we are not sort 
+        {key:'delete', content: movie => <button onClick={() =>this.props.onDelete(movie)} className='btn btn-danger btn-sm'>Delete</button>}//delete button
     ]
 
     render() { 
@@ -19,20 +19,7 @@ class MoviesTable extends Component {
 
         return  <table className="table">
         <TableHeader columns={this.columns} sortColumn={sortColumn} onSort={onSort}/>
-        <TableBody data={movies}/>
-        <tbody>
-            {movies.map(movie =>(
-                <tr key={movie._id}>
-                <td>{movie.title}</td>
-                <td>{movie.genre.name}</td>
-                <td>{movie.numberInStock}</td>
-                <td>{movie.dailyRentalRate}</td>
-                <td><Like liked={movie.liked} onClick={() => onLike(movie)}/></td>
-                <td><button onClick={() =>onDelete(movie)} className='btn btn-danger btn-sm'>Delete</button></td>
-            </tr>
-            ))}
-            
-        </tbody>
+        <TableBody columns={this.columns} data={movies}/>
     </table>
     }
 }
