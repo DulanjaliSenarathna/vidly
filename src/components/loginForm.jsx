@@ -20,25 +20,31 @@ class LoginForm extends Component {
         console.log('submited');
     };
 
-    handleChange = e => {
+    handleChange = ({currentTarget:input}) => {
         const account = {...this.state.account};
-        account.username = e.currentTarget.value;
+        account[input.name] = input.value;
         this.setState({account});
     };
     
     render() { 
+
+        const {account} = this.state;
+
         return (<div>
             <h1>Login</h1>
             <form onSubmit={this.handleSubmit}>
                 <div className='form-group'>
                     <label htmlFor='usename'>Username</label>
-                    <input value={this.state.account.username}
+                    <input value={account.username}
+                    name='username'
                     onChange={this.handleChange}
                      ref={this.username} id='usename' type="text" className='form-control' />
                 </div>
                 <div className='form-group'>
                     <label htmlFor='password'>Password</label>
-                    <input id='password' type="text" className='form-control' />
+                    <input value={account.password} 
+                    onChange={this.handleChange}
+                    id='password' type="text" className='form-control' name='password' />
                 </div>
                 <button className="btn btn-primary">Login</button>
             </form>
