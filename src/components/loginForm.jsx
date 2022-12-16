@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
+import Input from './common/input'
 
 class LoginForm extends Component {
 
     state = {
-        account : { username: '', password: ''}
+        account : { username: '', password: ''}//if not initialise empty string , react gives an error.
     };
 
     username = React.createRef();
-
-    componentDidMount(){
-        this.username.current.focus(); //instead of this method, we can use autoFocus in inout field as attribute
-    }
-
+   
     handleSubmit = e => {
         e.preventDefault(); //prevent default full page reloads
 
@@ -33,20 +30,10 @@ class LoginForm extends Component {
         return (<div>
             <h1>Login</h1>
             <form onSubmit={this.handleSubmit}>
-                <div className='form-group'>
-                    <label htmlFor='usename'>Username</label>
-                    <input value={account.username}
-                    name='username'
-                    onChange={this.handleChange}
-                     ref={this.username} id='usename' type="text" className='form-control' />
-                </div>
-                <div className='form-group'>
-                    <label htmlFor='password'>Password</label>
-                    <input value={account.password} 
-                    onChange={this.handleChange}
-                    id='password' type="text" className='form-control' name='password' />
-                </div>
-                <button className="btn btn-primary">Login</button>
+            <Input name='username' value={account.username} label="Username" onChange={this.handleChange}/>
+            <Input  name='password' value={account.password} label="Password" onChange={this.handleChange}/>
+                
+            <button className="btn btn-primary">Login</button>
             </form>
         </div>);
     }

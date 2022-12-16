@@ -8,6 +8,7 @@ import NavBar from './components/navBar';
 import MovieForm from './components/movieForm';
 import LoginForm from './components/loginForm';
 import './App.css';
+console.warn = () => {}
 
 function App() {
   return (
