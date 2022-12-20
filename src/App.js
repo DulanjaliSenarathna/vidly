@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import jwtDecode from 'jwt-decode';
 import Movies from './components/movies';
 import Customers from './components/customers';
 import Rentals from './components/rentals';
@@ -8,16 +9,33 @@ import NotFound from './components/notFound';
 import NavBar from './components/navBar';
 import MovieForm from './components/movieForm';
 import LoginForm from './components/loginForm';
+import RegisterForm from './components/registerForm';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css'
-import RegisterForm from './components/registerForm';
+
 console.warn = () => {}
 
-function App() {
-  return (
+class  App extends Component {
+
+  state = {}
+
+  componentDidMount() { 
+
+    try {
+      const jwt = localStorage.getItem('token');
+      const user = jwtDecode(jwt);
+      this.setState({user});
+    } catch (ex) {
+      //we cant handle this error because reason for the error is jwt.
+    }
+ 
+   }
+
+  render(){
+  return(
     <React.Fragment>
       <ToastContainer/>
-      <NavBar/>
+      <NavBar user = {this.state.user}/>
     <main className='container'>
       <Switch>
       <Route path="/register" component={RegisterForm}></Route>
@@ -33,6 +51,7 @@ function App() {
     </main>
     </React.Fragment>
   );
+}
 }
 
 export default App;
