@@ -10,6 +10,7 @@ import NavBar from './components/navBar';
 import MovieForm from './components/movieForm';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
+import Logout from './components/logout';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -40,6 +41,7 @@ class  App extends Component {
       <Switch>
       <Route path="/register" component={RegisterForm}></Route>
       <Route path="/login" component={LoginForm}></Route>
+      <Route path="/logout" component={Logout}></Route>
       <Route path="/movies/:id" component={MovieForm}></Route>
       <Route path="/movies" component={Movies}></Route>
       <Route path="/customers" component={Customers}></Route>
