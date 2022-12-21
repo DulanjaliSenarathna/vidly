@@ -38,7 +38,9 @@ class  App extends Component {
       <Route path="/login" component={LoginForm}></Route>
       <Route path="/logout" component={Logout}></Route>
       <Route path="/movies/:id" component={MovieForm}></Route>
-      <Route path="/movies" component={Movies}></Route>
+      <Route 
+        path="/movies" 
+        render={props => <Movies {...props} user={this.state.user}/>}></Route>
       <Route path="/customers" component={Customers}></Route>
       <Route path="/rentals" component={Rentals}></Route>
       <Route path="/not-found" component={NotFound}></Route>
@@ -50,5 +52,5 @@ class  App extends Component {
   );
 }
 }
-
+//if we need to pass additional attributes to above child elements, we need to add render attribute
 export default App;
