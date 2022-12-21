@@ -1,8 +1,5 @@
 import Axios from "axios";
 import {toast} from 'react-toastify';
-import auth from './authService'
-
-Axios.defaults.headers.common['x-auth-token'] = auth.getJwt();
 
 Axios.interceptors.response.use(null,error =>{
 
@@ -16,11 +13,17 @@ Axios.interceptors.response.use(null,error =>{
     return Promise.reject(error);
   });
 
+  // remove bi-directional dependacy
+  function setJwt(jwt){
+    Axios.defaults.headers.common['x-auth-token'] = jwt; 
+  }
+
 const some ={
     get: Axios.get,
     post: Axios.post,
     put: Axios.put,
-    delete: Axios.delete
+    delete: Axios.delete,
+    setJwt // remove bi-directional dependacy
   }
 
   export default some;
